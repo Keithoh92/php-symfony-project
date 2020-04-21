@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BidController!{% endblock %}
+
+{% block body %}
+<h1>My Bids</h1>
+
+    {% set bids = app.session.get('bids') %}
+
+    {% if bids is null %}
+    <p>
+        You have no bids
+    </p>
+    {% else %}
+    <ul>
+        {% for auction in bids %}
+        <li>
+            <hr>
+            {{ auction.id }} :: {{ auction.item }}
+            {{ auction.id }} :: {{ auction.currentBid }}
+            <p>My bid = $50</p>
+            <a href="{{ path('bid_delete', {'id': auction.id}) }}">(Remove)</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <p>
+        <a href="{{ path('bid_clear') }}">Clear all bids in my bids</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auction index{% endblock %}
+
+{% block body %}
+    <h1>Auction index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Category</th>
+            <th>Current Bids</th>
+            {#{% if is_granted('ROLE_ADMIN') %}#}
+                <th>actions</th>
+            {#{% endif %}#}
+        </tr>
+        </thead>
+        <tbody>
+        {% for auction in auctions %}
+            <tr>
+                <td>{{ auction.id }}</td>
+                <td>{{ auction.item }}</td>
+                <td>{{ auction.quantity }}</td>
+                <td>
+                    <a href="{{ url('category_show', {'id': auction.category.id}) }}">
+                        {{ auction.category }}</a>
+                </td>
+                <td>{{ auction.currentBid }}</td>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>
+                        <a href="{{ path('auction_show', {'id': auction.id}) }}">show</a>
+                        <a href="{{ path('auction_edit', {'id': auction.id}) }}">edit</a>
+                    </td>
+                    {% elseif is_granted('ROLE_USER') %}
+                        {#{% if is_granted('IS_FULLY_AUTHENTICATED') %}#}
+                        <td>
+                            <a href="{{ path('bid_add', {'id': auction.id }) }}">Make $50 bid on this item</a>
+                        </td>
+                {% endif %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('auction_new') }}">Create new</a>
+{% endblock %}

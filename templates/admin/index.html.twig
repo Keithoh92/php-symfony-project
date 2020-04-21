@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Index{% endblock %}
+
+{% block body %}
+{#<h1>Admin Home</h1>#}
+    <div class="mx-auto" style="width: 400px;">
+        <h1 class="text-center">Administration</h1>
+    </div>
+
+    <hr>
+    <div class="d-flex justify-content-center">
+        <a href="{{ url('auction_new') }}" class="btn btn-info mx-2">New Auction Form</a>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-center">
+        <a href="{{ url('category_new') }}" class="btn btn-info mx-2">New Category Form</a>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-center">
+        <a href="{{ url('user_new') }}" class="btn btn-info mx-2">New User Form</a>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-center">
+        <a href="{{ url('user_index') }}" class="btn btn-info mx-2">All Users</a>
+    </div>
+    <hr>
+
+{% endblock %}
