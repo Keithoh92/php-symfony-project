@@ -15,6 +15,7 @@ class AuctionType extends AbstractType
     {
         $builder
             ->add('item')
+            ->add('startDateTime')
             ->add('quantity')
             ->add('category', EntityType::class, [
                 'class' => 'App:Category',
@@ -25,7 +26,9 @@ class AuctionType extends AbstractType
 //                'class' => 'App:Bids',
 //                'choice_label' => 'title'
 //            ])
-            ->add('currentBid');
+            ->add('currentBid')
+            ->add('deadline')
+            ->add('completed');
     }
 
     public function configureOptions(OptionsResolver $resolver)

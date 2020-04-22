@@ -62,6 +62,8 @@ class BidController extends AbstractController
         $em->persist($currentBid1);
         $em->flush();
 
+        $user
+
 //        $id = $this->getUser();
 //        $id = $this->getParameter('myBids');
         return $this->redirectToRoute('bid_index');

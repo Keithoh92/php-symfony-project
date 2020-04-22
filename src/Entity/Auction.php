@@ -88,6 +88,26 @@ class Auction
      */
     private $currentBid;
 
+//    /**
+//     * @ORM\Column(type="datetime")
+//     */
+//    private $Status;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $startDateTime;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $completed;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $deadline;
+
     public function getCurrentBid(): ?int
     {
         return $this->currentBid;
@@ -121,4 +141,52 @@ class Auction
 //
 //        return $this;
 //    }
+
+
+//public function getStatus(): ?\DateTimeInterface
+//{
+//    return $this->Status;
+//}
+
+//public function setStatus(\DateTimeInterface $Status): self
+//{
+//    $this->Status = $Status;
+//
+//    return $this;
+//}
+
+public function getStartDateTime(): ?\DateTimeInterface
+{
+    return $this->startDateTime;
 }
+
+public function setStartDateTime(\DateTimeInterface $startDateTime): self
+{
+    $this->startDateTime = $startDateTime;
+
+    return $this;
+}
+
+public function getCompleted(): ?bool
+{
+    return $this->completed;
+}
+
+public function setCompleted(bool $completed): self
+{
+    $this->completed = $completed;
+
+    return $this;
+}
+
+public function getDeadline(): ?\DateTimeInterface
+{
+    return $this->deadline;
+}
+
+public function setDeadline(\DateTimeInterface $deadline): self
+{
+    $this->deadline = $deadline;
+
+    return $this;
+}}

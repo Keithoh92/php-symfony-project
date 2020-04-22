@@ -3,16 +3,19 @@
 {% block title %}Auction index{% endblock %}
 
 {% block body %}
+    {% set today = app.session.get("today") %}
     <h1>Auction index</h1>
 
     <table class="table">
         <thead>
         <tr>
             <th>Id</th>
+            <th>Start Date</th>
             <th>Item</th>
             <th>Quantity</th>
             <th>Category</th>
             <th>Current Bids</th>
+            <th>Status</th>
             {#{% if is_granted('ROLE_ADMIN') %}#}
                 <th>actions</th>
             {#{% endif %}#}
@@ -22,6 +25,7 @@
         {% for auction in auctions %}
             <tr>
                 <td>{{ auction.id }}</td>
+                <td>{{ auction.startDateTime|date('d-m-y') }}</td>
                 <td>{{ auction.item }}</td>
                 <td>{{ auction.quantity }}</td>
                 <td>
@@ -30,12 +34,27 @@
                 </td>
                 <td>{{ auction.currentBid }}</td>
 
+                <td>
+                    {% if auction.completed or date(auction.deadline) < date(today)%}
+                    <div class="finsihed">
+                        Auction Finished
+                        <br>
+                        {% else %}
+                            {% if date(today) < date(auction.startDateTime) %}
+                            <div class="scheduled">Not Started Yet</div>
+                            {% else %}
+                                <div class="open">Bid Open</div>
+                                {% endif %}
+                            {% endif %}
+                    </div>
+                </td>
+
                 {% if is_granted('ROLE_ADMIN') %}
                     <td>
                         <a href="{{ path('auction_show', {'id': auction.id}) }}">show</a>
                         <a href="{{ path('auction_edit', {'id': auction.id}) }}">edit</a>
                     </td>
-                    {% elseif is_granted('ROLE_USER') %}
+                    {% elseif is_granted('ROLE_USER') and date(today) > date(auction.startDateTime) and date(auction.deadline) > date(today) %}
                         {#{% if is_granted('IS_FULLY_AUTHENTICATED') %}#}
                         <td>
                             <a href="{{ path('bid_add', {'id': auction.id }) }}">Make $50 bid on this item</a>
@@ -49,6 +68,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('auction_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

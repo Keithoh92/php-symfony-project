@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,6 +41,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $myBids;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserBids", mappedBy="bidder")
+     */
+    private $previousBids;
+
+    public function __construct()
+    {
+        $this->previousBids = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,6 +135,37 @@ class User implements UserInterface
     public function setMyBids(string $myBids): self
     {
         $this->myBids = $myBids;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserBids[]
+     */
+    public function getPreviousBids(): Collection
+    {
+        return $this->previousBids;
+    }
+
+    public function addPreviousBid(UserBids $previousBid): self
+    {
+        if (!$this->previousBids->contains($previousBid)) {
+            $this->previousBids[] = $previousBid;
+            $previousBid->setBidder($this);
+        }
+
+        return $this;
+    }
+
+    public function removePreviousBid(UserBids $previousBid): self
+    {
+        if ($this->previousBids->contains($previousBid)) {
+            $this->previousBids->removeElement($previousBid);
+            // set the owning side to null (unless already changed)
+            if ($previousBid->getBidder() === $this) {
+                $previousBid->setBidder(null);
+            }
+        }
 
         return $this;
     }
