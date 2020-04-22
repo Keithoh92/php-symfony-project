@@ -12,7 +12,7 @@ class UserBidsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('item')
+            ->add('bidItem')
             ->add('mybid')
             ->add('currentbid')
             ->add('bidder')

@@ -19,7 +19,7 @@ class UserBids
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $item;
+    private $bidItem;
 
     /**
      * @ORM\Column(type="integer")
@@ -41,14 +41,14 @@ class UserBids
         return $this->id;
     }
 
-    public function getItem(): ?string
+    public function getBidItem(): ?string
     {
-        return $this->item;
+        return $this->bidItem;
     }
 
-    public function setItem(string $item): self
+    public function setBidItem(string $bidItem): self
     {
-        $this->item = $item;
+        $this->bidItem = $bidItem;
 
         return $this;
     }

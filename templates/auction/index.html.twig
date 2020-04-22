@@ -58,10 +58,9 @@
                         {#{% if is_granted('IS_FULLY_AUTHENTICATED') %}#}
                         <td>
                             <form method="post"
-                                  action="{{ path('auction_bid') }}">
+                                  action="{{ path('auction_bid', {'id': auction.id}) }}">
                             Make Bid:
                                 <input type="number" name="newBid">
-                                <br>
                                 <input type="submit">
                             </form>
                         </td>

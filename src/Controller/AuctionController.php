@@ -54,24 +54,21 @@ class AuctionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/userBid", name="auction_bid", methods={"POST"})
+     * @Route("/{id}/userBids", name="auction_bid", methods={"POST"})
      * @IsGranted("ROLE_USER")
      */
     public function processBid(Auction $auction): Response
     {
-        $auctions = [];
 
-        $session = new Session();
-
-        $id = $auction->getId();
         $newBid = filter_input(INPUT_POST, 'newBid');
 
         $user = $this->getUser();
+
         $item = $auction->getItem();
         $currentBid = $auction->getCurrentBid();
 
         $userBids = new UserBids();
-        $userBids->setItem($item);
+        $userBids->setBidItem($item);
         $userBids->setCurrentbid($currentBid);
         $userBids->setMybid($newBid);
         $userBids->setBidder($user);

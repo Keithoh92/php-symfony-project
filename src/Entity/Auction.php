@@ -130,30 +130,6 @@ class Auction
         return $this->id . ': ' . $this->getItem();   // TODO: Implement __toString() method.
     }
 
-//    public function getBids(): ?Bids
-//    {
-//        return $this->Bids;
-//    }
-//
-//    public function setBids(?Bids $Bids): self
-//    {
-//        $this->Bids = $Bids;
-//
-//        return $this;
-//    }
-
-
-//public function getStatus(): ?\DateTimeInterface
-//{
-//    return $this->Status;
-//}
-
-//public function setStatus(\DateTimeInterface $Status): self
-//{
-//    $this->Status = $Status;
-//
-//    return $this;
-//}
 
 public function getStartDateTime(): ?\DateTimeInterface
 {
