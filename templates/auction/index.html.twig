@@ -57,7 +57,13 @@
                     {% elseif is_granted('ROLE_USER') and date(today) > date(auction.startDateTime) and date(auction.deadline) > date(today) %}
                         {#{% if is_granted('IS_FULLY_AUTHENTICATED') %}#}
                         <td>
-                            <a href="{{ path('bid_add', {'id': auction.id }) }}">Make $50 bid on this item</a>
+                            <form method="post"
+                                  action="{{ path('auction_bid') }}">
+                            Make Bid:
+                                <input type="number" name="newBid">
+                                <br>
+                                <input type="submit">
+                            </form>
                         </td>
                 {% endif %}
             </tr>

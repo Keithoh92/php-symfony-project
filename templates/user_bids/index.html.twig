@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserBids index{% endblock %}
+
+{% block body %}
+    <h1>UserBids index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Item</th>
+                <th>Mybid</th>
+                <th>Currentbid</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user_bid in user_bids %}
+            <tr>
+                <td>{{ user_bid.id }}</td>
+                <td>{{ user_bid.item }}</td>
+                <td>{{ user_bid.mybid }}</td>
+                <td>{{ user_bid.currentbid }}</td>
+                <td>
+                    <a href="{{ path('user_bids_show', {'id': user_bid.id}) }}">show</a>
+                    <a href="{{ path('user_bids_edit', {'id': user_bid.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_bids_new') }}">Create new</a>
+{% endblock %}

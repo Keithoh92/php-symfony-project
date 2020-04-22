@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Auction;
+use App\Entity\UserBids;
 use App\Form\AuctionType;
 use App\Repository\AuctionRepository;
+use mysql_xdevapi\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +14,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\Persistence\ObjectManager;
+use App\Entity\User;
 
 
 /**
@@ -49,6 +52,39 @@ class AuctionController extends AbstractController
         $this->setDateInSession($newDate);
         return $this->redirectToRoute('auction_index');
     }
+
+    /**
+     * @Route("/{id}/userBid", name="auction_bid", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function processBid(Auction $auction): Response
+    {
+        $auctions = [];
+
+        $session = new Session();
+
+        $id = $auction->getId();
+        $newBid = filter_input(INPUT_POST, 'newBid');
+
+        $user = $this->getUser();
+        $item = $auction->getItem();
+        $currentBid = $auction->getCurrentBid();
+
+        $userBids = new UserBids();
+        $userBids->setItem($item);
+        $userBids->setCurrentbid($currentBid);
+        $userBids->setMybid($newBid);
+        $userBids->setBidder($user);
+        $currentBid = $auction->setCurrentBid($currentBid + $newBid);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($userBids);
+        $entityManager->persist($currentBid);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('auction_index');
+    }
+
 
     /**
      * @Route("/", name="auction_index", methods={"GET"})
