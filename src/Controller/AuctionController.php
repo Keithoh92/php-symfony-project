@@ -6,6 +6,7 @@ use App\Entity\Auction;
 use App\Entity\UserBids;
 use App\Form\AuctionType;
 use App\Repository\AuctionRepository;
+use App\Repository\UserBidsRepository;
 use mysql_xdevapi\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,6 +81,26 @@ class AuctionController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('auction_index');
+    }
+    /**
+     * @Route("/{id}/userBids", name="auction_winner", methods={"GET"})
+     */
+    public function checkWinner(Auction $auction, UserBidsRepository $repository): Response
+    {
+       $item = $auction->getItem();
+
+        $userBidsRepository = $this->getDoctrine()->getRepository('App:UserBids');
+        $userBids = $userBidsRepository->findAll($item);
+
+        //$userRepository = $this->getDoctrine()->getRepository(UserBids::class);
+//        $userBids = $repository->findOneBySomeField($item);
+
+
+        $template = 'auction/winner.html.twig';
+        $args = [
+            'userBids' => $userBids
+    ];
+        return $this->render($template, $args);
     }
 
 

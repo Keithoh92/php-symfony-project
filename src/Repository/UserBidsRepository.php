@@ -22,29 +22,33 @@ class UserBidsRepository extends ServiceEntityRepository
     // /**
     //  * @return UserBids[] Returns an array of UserBids objects
     //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?UserBids
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+//    public function findByExampleField($value)
+//    {
+//        return $this->createQueryBuilder('u')
+//            ->from('App:Auction', 'u')
+//            ->join('App:UserBids', 'e')
+//            ->where('e.bidItem = :value')
+////            ->andWhere('u.exampleField = :val')
+//            ->setParameter('val', $value)
+////            ->orderBy('', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
+
+
+
+//    public function findOneBySomeField($item): ?UserBids
+//    {
+//        return $this->createQueryBuilder('userBids')
+//            ->andWhere('userBids.bidItem = :item')
+//            ->orderBy('userBids.currentbid', 'ASC')
+//            ->setParameter('item', $item)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
+
 }

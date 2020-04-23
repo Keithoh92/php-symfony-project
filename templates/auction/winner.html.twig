@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Bids for this item{% endblock %}
+
+{% block body %}
+
+<h1>User bids for this item</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Item</th>
+        <th>Current Bids</th>
+        <th>Bidder</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for userBid in userBids %}
+    <tr>
+        <td>{{ userBid.id }}</td>
+        <td>{{ userBid.bidItem }}</td>
+        <td>{{ userBid.currentbid }}</td>
+        <td>{{ userBid.bidder.username }}</td>
+
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

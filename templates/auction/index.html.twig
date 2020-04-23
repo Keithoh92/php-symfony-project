@@ -38,6 +38,7 @@
                     {% if auction.completed or date(auction.deadline) < date(today)%}
                     <div class="finsihed">
                         Auction Finished
+                        <a href="{{ url('auction_winner', {'id': auction.id}) }}">Check winner</a>
                         <br>
                         {% else %}
                             {% if date(today) < date(auction.startDateTime) %}
