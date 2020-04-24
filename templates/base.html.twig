@@ -5,11 +5,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>MGW - {% block title %}page{% endblock %}</title>
+    <title>Charity Auctions {% block title %}page{% endblock %}</title>
     <meta charset="utf-8">
-    <style>
-        @import '/../public/css/flash.css';
-    </style>
+
     {% block stylesheets %}{% endblock %}
 
 </head>
@@ -41,32 +39,43 @@
                     <a href="{{ url('category_index') }}" class="flex-sm-fill text-sm-center nav-link active bg-warning text-white">Categories</a>
                 </li>
             </div>
+            {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+            <div class="btn-toolbar mx-2">
+                <li class="nav-item<?= $categoriesPageStyle ?>">
+                    <a href="{{ url('about') }}" class="flex-sm-fill text-sm-center nav-link active bg-warning text-white">About</a>
+                </li>
+            </div>
 
-            {#{% endif %}#}
+            {% endif %}
 
             {% if is_granted('ROLE_USER') %}
                 <div class="btn-toolbar mx-2">
-                    <li class="nav-item<?= $loginPageStyle ?>">
+                    <li class="nav-item<?= ?>">
                         <a href="{{ url('user_bids_index') }}" class="flex-sm-fill text-sm-center nav-link active bg-warning text-white">MyBids</a>
                     </li>
                 </div>
                 <div class="btn-toolbar mx-2">
-                <li class="nav-item<?= $loginPageStyle ?>">
+                <li class="nav-item<?= ?>">
                     <a href="{{ url('app_logout') }}" class="flex-sm-fill text-sm-center nav-link active bg-warning text-white">Logout</a>
                 </li>
             </div>
             {#{% endif %}#}
             {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
             <div class="btn-toolbar mx-2">
-                <li class="nav-item<?= $loginPageStyle ?>">
+                <li class="nav-item<?= ?>">
                     <a href="{{ url('app_login') }}" class="flex-sm-fill text-sm-center nav-link active bg-warning text-white">Login</a>
                 </li>
             </div>
+                <div class="btn-toolbar mx-2">
+                    <li class="nav-item<?=  ?>">
+                        <a href="{{ url('app_register') }}" class="flex-sm-fill text-sm-center nav-link active bg-warning text-white">Register</a>
+                    </li>
+                </div>
                 {% endif %}
 
             {% if is_granted('ROLE_ADMIN') %}
                 <div class="btn-toolbar mx-2">
-                    <li class="nav-item<?= $loginPageStyle ?>">
+                    <li class="nav-item<?=  ?>">
                         <a href="{{ url('admin') }}" class="flex-sm-fill text-sm-center nav-link active bg-warning text-white">Admin</a>
                     </li>
                 </div>

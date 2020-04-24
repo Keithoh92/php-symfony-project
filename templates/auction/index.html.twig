@@ -4,27 +4,31 @@
 
 {% block body %}
     {% set today = app.session.get("today") %}
-    <h1>Auction index</h1>
+    <h1>Auctions</h1>
 
     <table class="table">
         <thead>
         <tr>
+            {% if is_granted('ROLE_ADMIN') %}
             <th>Id</th>
+            {% endif %}
             <th>Start Date</th>
             <th>Item</th>
             <th>Quantity</th>
             <th>Category</th>
             <th>Current Bids</th>
             <th>Status</th>
-            {#{% if is_granted('ROLE_ADMIN') %}#}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')%}
                 <th>actions</th>
-            {#{% endif %}#}
+            {% endif %}
         </tr>
         </thead>
         <tbody>
         {% for auction in auctions %}
             <tr>
+                {% if is_granted('ROLE_ADMIN') %}
                 <td>{{ auction.id }}</td>
+                {% endif %}
                 <td>{{ auction.startDateTime|date('d-m-y') }}</td>
                 <td>{{ auction.item }}</td>
                 <td>{{ auction.quantity }}</td>
@@ -38,7 +42,6 @@
                     {% if auction.completed or date(auction.deadline) < date(today)%}
                     <div class="finsihed">
                         Auction Finished
-                        <a href="{{ url('auction_winner', {'id': auction.id}) }}">Check winner</a>
                         <br>
                         {% else %}
                             {% if date(today) < date(auction.startDateTime) %}
@@ -62,9 +65,15 @@
                                   action="{{ path('auction_bid', {'id': auction.id}) }}">
                             Make Bid:
                                 <input type="number" name="newBid">
-                                <input type="submit">
+                                <button class="btn btn-sm btn-primary" type="submit">
+                                    Submit
                             </form>
                         </td>
+                {% endif %}
+                <td>
+                    {% if auction.completed or date(auction.deadline) < date(today) and is_granted('ROLE_USER')%}
+                    <a href="{{ url('auction_winner', {'id': auction.id}) }}">Check winner</a>
+                </td>
                 {% endif %}
             </tr>
         {% else %}

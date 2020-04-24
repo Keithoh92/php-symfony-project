@@ -89,8 +89,10 @@ class AuctionController extends AbstractController
     {
        $item = $auction->getItem();
 
+
         $userBidsRepository = $this->getDoctrine()->getRepository('App:UserBids');
         $userBids = $userBidsRepository->findAll($item);
+        ;
 
         //$userRepository = $this->getDoctrine()->getRepository(UserBids::class);
 //        $userBids = $repository->findOneBySomeField($item);

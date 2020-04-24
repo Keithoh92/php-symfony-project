@@ -6,13 +6,14 @@
     <h1>Create new Auction</h1>
 
     {#{{ include('auction/_form.html.twig') }}#}
-    {{ form_start(form) }}
-    {{ form_row(form.item) }}
-    {{ form_row(form.quantity) }}
-    {{ form_row(form.category) }}
-    {{ form_row(form.currentBid) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
+    {#{{ form_start(form) }}#}
+    {#{{ form_row(form.item) }}#}
+    {#{{ form_row(form.quantity) }}#}
+    {#{{ form_row(form.category) }}#}
+    {#{{ form_row(form.currentBid) }}#}
+    {#<button class="btn">{{ button_label|default('Save') }}</button>#}
+    {#{{ form_end(form) }}#}
+    {{ include('auction/_form.html.twig') }}
 
 
     <a href="{{ path('auction_index') }}">back to list</a>

@@ -3,7 +3,7 @@
 {% block title %}UserBids index{% endblock %}
 
 {% block body %}
-    <h1>UserBids index</h1>
+    <h1>My Bids</h1>
 
     <table class="table">
         <thead>
@@ -12,6 +12,7 @@
                 <th>Item</th>
                 <th>Mybid</th>
                 <th>Previous bid</th>
+                {#<th>Current top Bid</th>#}
             </tr>
         </thead>
         <tbody>
@@ -21,15 +22,19 @@
                 <td>{{ user_bid.bidItem }}</td>
                 <td>{{ user_bid.mybid }}</td>
                 <td>{{ user_bid.currentbid }}</td>
-
+                {#<td>{{ auction.currentBid }}</td>#}
             </tr>
         {% else %}
             <tr>
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
+        {#<tr>#}
+            {#<td>#}
+                {#{{ auction.currentBid }}#}
+            {#</td>#}
+        {#</tr>#}
         </tbody>
     </table>
 
-    <a href="{{ path('user_bids_new') }}">Create new</a>
 {% endblock %}

@@ -8,7 +8,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Id</th>
+                {% endif %}
                 <th>Title</th>
                 <th> </th>
 
@@ -17,7 +19,9 @@
         <tbody>
         {% for category in categories %}
             <tr>
-                <td>{{ category.id }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>{{ category.id }}</td>
+                {% endif %}
                 <td>{{ category.title }}</td>
                 <td>
                     <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
@@ -33,6 +37,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('category_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
